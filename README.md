@@ -1,6 +1,6 @@
 # convert_base
 
-convertisseur des differentes bases
+petite application flutter qui convertir un nombre d'une base A vers une base B et qui a en son sein des astuces pour le faire manuellement
 
 ## Getting Started
 
