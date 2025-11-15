@@ -10,11 +10,11 @@ class AstucDetailScreen extends StatelessWidget {
   }) : super(key: key);
 
   Color _getBaseColor(String id) {
-    if (id.contains('2')) return const Color(0xFF052659); // Indigo
-    if (id.contains('8')) return const Color(0xFF06B6D4); // Cyan
-    if (id.contains('10')) return const Color(0xFF10B981); // Emerald
-    if (id.contains('16')) return const Color(0xFFF59E0B); // Amber
-    return const Color(0xFF8B5CF6); // Violet
+    if (id.contains('2')) return const Color(0xFF052659);
+    if (id.contains('8')) return const Color(0xFF06B6D4);
+    if (id.contains('10')) return const Color(0xFF10B981);
+    if (id.contains('16')) return const Color(0xFFF59E0B);
+    return const Color(0xFF8B5CF6);
   }
 
   @override
