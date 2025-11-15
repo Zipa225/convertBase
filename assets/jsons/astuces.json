@@ -24,7 +24,7 @@
     "titre": "Décimal → Binaire",
     "explication": "On divise par 2 plusieurs fois et on regarde les restes. On lit ensuite les restes de bas en haut.",
     "etapes": [
-      " Divise le nombre par 2.",
+      " Divise le nombre par 2",
       " Note le reste (0 ou 1).",
       " Reprends le quotient et recommence jusqu’à obtenir 0.",
       " Lis les restes du bas vers le haut."

@@ -35,33 +35,20 @@ class _HomePageState extends State<HomePage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
-          PopupMenuButton(
-            icon: Icon(
-              Icons.light_mode_outlined,
-              color: Colors.white,
-            ),
 
-            itemBuilder: (context) {
-              return bases.entries.map((base) {
-                return PopupMenuItem(
-                  value: base.key,
-                  child: Text(base.value),
-                );
-              }).toList();
-            },
-          ),
+          Tooltip(
+            message: "Apprenez les méthodes de conversion manuelle",
 
-          IconButton(
-              onPressed: null,
+            child: IconButton(
+              onPressed:(){Navigator.pushNamed(context, '/astuces');},
               icon: Icon(
-                Icons.lightbulb_outline,
-                color: Colors.white,
-
-
+                Icons.lightbulb_rounded,
+                color: Colors.yellow,
               ),
-          ),
-        ],
+            ),
+          )
 
+        ],
         centerTitle: true,
         elevation: 4,
       ),
@@ -203,8 +190,9 @@ class _HomePageState extends State<HomePage> {
                             res.isEmpty ? "Résultat" : res,
 
                             style: TextStyle(
+                              fontFamily: 'poppins',
                               fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w900,
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
