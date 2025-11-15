@@ -35,31 +35,28 @@ class _HomePageState extends State<HomePage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
-          PopupMenuButton(
-            icon: Icon(
-              Icons.light_mode_outlined,
-              color: Colors.white,
-            ),
-
-            itemBuilder: (context) {
-              return bases.entries.map((base) {
-                return PopupMenuItem(
-                  value: base.key,
-                  child: Text(base.value),
-                );
-              }).toList();
-            },
-          ),
-
+          // PopupMenuButton(
+          //   icon: Icon(
+          //     Icons.lightbulb_outline,
+          //     color: Colors.white,
+          //   ),
+          //
+          //   itemBuilder: (context) {
+          //     return bases.entries.map((base) {
+          //       return PopupMenuItem(
+          //         value: base.key,
+          //         child: Text(base.value),
+          //       );
+          //     }).toList();
+          //   },
+          // ),
           IconButton(
-              onPressed: null,
-              icon: Icon(
-                Icons.lightbulb_outline,
-                color: Colors.white,
+              onPressed:(){
+                Navigator.pushNamed(context, '/astuces');
+              },
+              icon: Icon(Icons.lightbulb,color: Colors.white,)
+          )
 
-
-              ),
-          ),
         ],
 
         centerTitle: true,

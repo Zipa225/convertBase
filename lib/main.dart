@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Views/details/Astuces.dart';
 import 'Views/home/HomePage.dart';
 
 void main() {
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/':(context)=>HomePage(),
+        '/astuces':(context)=>AstucesListScreen(),
       },
     );
   }

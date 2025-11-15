@@ -1,0 +1,237 @@
+{
+  "2_to_10": {
+    "titre": "Binaire → Décimal",
+    "explication": "On multiplie chaque chiffre par 2 puissance sa position (position 0 à droite), puis on additionne.",
+    "etapes": [
+      " Numérote les positions de droite à gauche en commençant à 0.",
+      " Pour chaque bit, fais : bit × 2^(position).",
+      " Additionne tout : le total = valeur décimale."
+    ],
+    "exemple": {
+      "nombre": "1011₂",
+      "positions": "3,2,1,0 de gauche à droite",
+      "calculs": [
+        "1 × 2^3 = 8",
+        "0 × 2^2 = 0",
+        "1 × 2^1 = 2",
+        "1 × 2^0 = 1"
+      ],
+      "resultat": "8 + 0 + 2 + 1 = 11 → 1011₂ = 11₁₀"
+    }
+  },
+
+  "10_to_2": {
+    "titre": "Décimal → Binaire",
+    "explication": "On divise par 2 plusieurs fois et on regarde les restes. On lit ensuite les restes de bas en haut.",
+    "etapes": [
+      " Divise le nombre par 2.",
+      " Note le reste (0 ou 1).",
+      " Reprends le quotient et recommence jusqu’à obtenir 0.",
+      " Lis les restes du bas vers le haut."
+    ],
+    "exemple": {
+      "nombre": "11₁₀",
+      "calculs": [
+        "11 ÷ 2 = 5 reste 1",
+        "5 ÷ 2 = 2 reste 1",
+        "2 ÷ 2 = 1 reste 0",
+        "1 ÷ 2 = 0 reste 1"
+      ],
+      "resultat": "Restes lus de bas en haut : 1011 → 11₁₀ = 1011₂"
+    }
+  },
+
+  "2_to_8": {
+    "titre": "Binaire → Octal",
+    "explication": "On regroupe les bits de droite à gauche par groupes de 3, puis on convertit chaque groupe en décimal.",
+    "etapes": [
+      " Sépare en groupes de 3 bits à partir de la droite.",
+      " Si un groupe n’a pas 3 bits, ajoute des 0 à gauche.",
+      " Convertis chaque groupe en décimal.",
+      " Le résultat est le nombre octal."
+    ],
+    "exemple": {
+      "nombre": "101110₂",
+      "groupes": ["101", "110"],
+      "conversion": [
+        "101₂ = 5",
+        "110₂ = 6"
+      ],
+      "resultat": "56₈"
+    }
+  },
+
+  "8_to_2": {
+    "titre": "Octal → Binaire",
+    "explication": "Chaque chiffre octal se convertit en un groupe de 3 bits.",
+    "etapes": [
+      " Prends chaque chiffre du nombre octal.",
+      " Convertis-le en 3 bits binaires.",
+      " Assemble tous les groupes."
+    ],
+    "exemple": {
+      "nombre": "56₈",
+      "conversion": [
+        "5 → 101",
+        "6 → 110"
+      ],
+      "resultat": "101110₂"
+    }
+  },
+
+  "2_to_16": {
+    "titre": "Binaire → Hexadécimal",
+    "explication": "On regroupe par lots de 4 bits en partant de la droite, puis on convertit chaque groupe en hexadécimal.",
+    "etapes": [
+      " Coupe le nombre en groupes de 4 bits.",
+      " Ajoute des 0 à gauche si un groupe est incomplet.",
+      " Convertis chaque groupe en hexadécimal.",
+      " Assemble les résultats."
+    ],
+    "exemple": {
+      "nombre": "11010111₂",
+      "groupes": ["1101", "0111"],
+      "conversion": [
+        "1101₂ = D",
+        "0111₂ = 7"
+      ],
+      "resultat": "D7₁₆"
+    }
+  },
+
+  "16_to_2": {
+    "titre": "Hexadécimal → Binaire",
+    "explication": "Chaque chiffre hexadécimal correspond exactement à un groupe de 4 bits.",
+    "etapes": [
+      " Prends chaque caractère hexadécimal.",
+      " Convertis-le en 4 bits.",
+      " Assemble tous les groupes."
+    ],
+    "exemple": {
+      "nombre": "D7₁₆",
+      "conversion": [
+        "D → 1101",
+        "7 → 0111"
+      ],
+      "resultat": "11010111₂"
+    }
+  },
+
+  "8_to_10": {
+    "titre": "Octal → Décimal",
+    "explication": "On multiplie chaque chiffre par 8 puissance sa position.",
+    "etapes": [
+      " Numérote les positions à partir de la droite (0).",
+      " Calcule : chiffre × 8^(position).",
+      " Additionne les valeurs."
+    ],
+    "exemple": {
+      "nombre": "56₈",
+      "calculs": [
+        "5 × 8^1 = 40",
+        "6 × 8^0 = 6"
+      ],
+      "resultat": "40 + 6 = 46₁₀"
+    }
+  },
+
+  "10_to_8": {
+    "titre": "Décimal → Octal",
+    "explication": "On divise par 8 et on note les restes, puis on lit les restes du bas vers le haut.",
+    "etapes": [
+      " Divise par 8.",
+      " Note le reste.",
+      " Continue avec le quotient jusqu’à 0.",
+      " Lis les restes du bas vers le haut."
+    ],
+    "exemple": {
+      "nombre": "46₁₀",
+      "calculs": [
+        "46 ÷ 8 = 5 reste 6",
+        "5 ÷ 8 = 0 reste 5"
+      ],
+      "resultat": "56₈"
+    }
+  },
+
+  "8_to_16": {
+    "titre": "Octal → Hexadécimal",
+    "explication": "On convertit d’abord en binaire (3 bits par chiffre), puis du binaire vers l’hexadécimal (groupes de 4 bits).",
+    "etapes": [
+      " Convertis chaque chiffre en 3 bits.",
+      " Assemble tous les bits.",
+      " Regroupe en blocs de 4 bits.",
+      " Convertis chaque bloc en hexadécimal."
+    ],
+    "exemple": {
+      "nombre": "56₈",
+      "binaire": "101110",
+      "groupes_4_bits": ["0001", "0111"],
+      "conversion": [
+        "0001 → 1",
+        "0111 → 7"
+      ],
+      "resultat": "17₁₆"
+    }
+  },
+
+  "16_to_8": {
+    "titre": "Hexadécimal → Octal",
+    "explication": "On passe d’abord en binaire (4 bits par chiffre), puis du binaire vers l’octal (groupes de 3 bits).",
+    "etapes": [
+      " Convertis chaque hexadécimal en 4 bits.",
+      " Assemble tout.",
+      " Fais des groupes de 3 bits.",
+      " Convertis chaque groupe en octal."
+    ],
+    "exemple": {
+      "nombre": "17₁₆",
+      "binaire": "0001 0111",
+      "groupes_3_bits": ["000", "101", "111"],
+      "conversion": [
+        "000 → 0",
+        "101 → 5",
+        "111 → 7"
+      ],
+      "resultat": "057₈ (ou 57₈ sans le zéro)"
+    }
+  },
+
+  "10_to_16": {
+    "titre": "Décimal → Hexadécimal",
+    "explication": "On divise par 16, on note les restes, puis on lit du bas vers le haut.",
+    "etapes": [
+      " Divise par 16.",
+      " Note le reste (0–15).",
+      " Convertis les restes 10→A, 11→B, etc.",
+      " Lis les restes du bas vers le haut."
+    ],
+    "exemple": {
+      "nombre": "254₁₀",
+      "calculs": [
+        "254 ÷ 16 = 15 reste 14 (E)",
+        "15 ÷ 16 = 0 reste 15 (F)"
+      ],
+      "resultat": "FE₁₆"
+    }
+  },
+
+  "16_to_10": {
+    "titre": "Hexadécimal → Décimal",
+    "explication": "On multiplie chaque chiffre par 16 puissance sa position.",
+    "etapes": [
+      " Numérote les positions depuis la droite.",
+      " Convertis A→10, B→11...",
+      " Calcule : chiffre × 16^(position).",
+      " Additionne tout."
+    ],
+    "exemple": {
+      "nombre": "FE₁₆",
+      "calculs": [
+        "F (15) × 16^1 = 240",
+        "E (14) × 16^0 = 14"
+      ],
+      "resultat": "240 + 14 = 254"
+    }
+  }
+}
