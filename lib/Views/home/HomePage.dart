@@ -196,7 +196,8 @@ class _HomePageState extends State<HomePage> {
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
-                        )
+                        ),
+                        SizedBox(height: 100),
                       ],
                     )
                 ),
@@ -207,6 +208,26 @@ class _HomePageState extends State<HomePage> {
         ),
 
       ),
+
+      bottomNavigationBar: BottomAppBar(
+        elevation: 8,
+        color: Theme.of(context).colorScheme.secondary,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Center(
+            child: Text(
+              "© 2024 Developed by Emmanuel Ble",
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ),
+        ),
+      ),
+
 
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Views/Splash.dart';
 import 'Views/details/Astuces.dart';
 import 'Views/home/HomePage.dart';
 
@@ -90,8 +91,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/':(context)=>HomePage(),
+        '/':(context)=>Splash(),
+        '/home':(context)=>HomePage(),
         '/astuces':(context)=>AstucesListScreen(),
+
       },
     );
   }
