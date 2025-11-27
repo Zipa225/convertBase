@@ -15,7 +15,7 @@ class _SplashState extends State<Splash> {
     super.initState();
 
 
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, '/home');
     });
   }
@@ -51,7 +51,7 @@ class _SplashState extends State<Splash> {
               const Text(
                 "Bienvenue sur ConvertBase",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF021024),
                 ),

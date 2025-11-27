@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
           bodyLarge: TextStyle(color: darkBlue,fontFamily: 'Mamba'),
           bodyMedium: TextStyle(color: deepBlue,fontFamily: 'Mamba'),
           titleLarge: TextStyle(color: mediumBlue,fontFamily: 'Mamba', fontWeight: FontWeight.bold),
+          titleMedium: TextStyle(color: mediumBlue,fontFamily: 'Mamba', fontWeight: FontWeight.bold),
         ),
 
         // Boutons
