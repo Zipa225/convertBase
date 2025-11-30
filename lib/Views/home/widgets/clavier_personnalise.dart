@@ -85,32 +85,78 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(spacing),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red.shade400,
-                      foregroundColor: Colors.white,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+
+                  children: [
+                    // Bouton "."
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox(
+
+                        height: 50, // même hauteur pour les deux
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue.shade50,
+                            foregroundColor: Colors.black,
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.all(5),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              hexValue += ".";
+                              widget.controller.text = hexValue;
+                            });
+                          },
+                          child: const Text(
+                            ".",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                      padding: EdgeInsets.zero,
                     ),
-                    onPressed: () {
-                      if (hexValue.isNotEmpty) {
-                        setState(() {
-                          hexValue = hexValue.substring(0, hexValue.length - 1);
-                          widget.controller.text = hexValue;
-                        });
-                      }
-                    },
-                    child: const Icon(Icons.backspace),
-                  ),
+
+                    SizedBox(width: spacing), // espacement entre les boutons
+
+                    // Bouton backspace
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        height: 50, // même hauteur
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red.shade400,
+                            foregroundColor: Colors.white,
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.zero,
+                          ),
+                          onPressed: () {
+                            if (hexValue.isNotEmpty) {
+                              setState(() {
+                                hexValue = hexValue.substring(0, hexValue.length - 1);
+                                widget.controller.text = hexValue;
+                              });
+                            }
+                          },
+                          child: const Icon(Icons.backspace),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              )
+
+
             ],
           );
         },

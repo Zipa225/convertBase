@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 4,
           titleTextStyle: TextStyle(
-            fontSize: 20,
+            fontSize: 16.5,
             fontFamily: 'Mamba',
             fontWeight: FontWeight.bold,
 

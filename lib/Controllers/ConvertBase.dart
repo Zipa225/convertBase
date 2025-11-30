@@ -1,86 +1,119 @@
+
+import 'dart:math' as Math;
+
 class ConvertBase {
   final String number;
   final int fromBase;
   final int toBase;
+  final int fractionPrecision;
 
   ConvertBase({
     required this.number,
     required this.fromBase,
     required this.toBase,
+    this.fractionPrecision = 10,
   });
 
-  // Lance la conversion en fonction des bases
   String convert() {
-    if (fromBase == toBase) {
-      return number;
-    }
+    if (fromBase == toBase) return number;
 
+    // Séparer partie entière et fractionnaire
+    List<String> parts = number.split('.');
+    String intPart = parts[0];
+    String fracPart = parts.length > 1 ? parts[1] : '';
 
-    int decimalValue = _toDecimal(number, fromBase);
+    BigInt decimalInt = _toDecimalInt(intPart, fromBase);
+    double decimalFrac = _toDecimalFraction(fracPart, fromBase);
 
-    // la base cible est 10 → retour direct
-    if (toBase == 10) {
-      return decimalValue.toString();
-    }
+    // Conversion vers base cible
+    String convertedInt = _fromDecimalInt(decimalInt, toBase);
+    String convertedFrac = fracPart.isNotEmpty
+        ? _fromDecimalFraction(decimalFrac, toBase, fractionPrecision)
+        : '';
 
-    //  convertir du décimal vers la base cible
-    return _fromDecimal(decimalValue, toBase);
+    return convertedFrac.isNotEmpty ? '$convertedInt.$convertedFrac' : convertedInt;
   }
 
-  /// Conversion d'une base X vers décimal
-  int _toDecimal(String number, int base) {
-    int result = 0;
-    int power = 0;
+  // Partie entière → BigInt
+  BigInt _toDecimalInt(String number, int base) {
+    number = number.toUpperCase();
+    BigInt result = BigInt.zero;
 
-    for (int i = number.length - 1; i >= 0; i--) {
-      int digitValue = _charToValue(number[i]);
-      if (digitValue >= base) {
-        throw Exception("Chiffre '${number[i]}' invalide pour la base $base");
+    for (int i = 0; i < number.length; i++) {
+      int digit = _charToValue(number[i]);
+      if (digit >= base) {
+        throw FormatException("Caractère '${number[i]}' invalide pour la base $base");
       }
-      result += digitValue * (basePow(base, power));
-      power++;
+      result = result * BigInt.from(base) + BigInt.from(digit);
     }
     return result;
   }
 
-  /// Conversion du décimal vers une base X (algo #2)
-  String _fromDecimal(int number, int base) {
-    if (number == 0) return "0";
-    String result = "";
-    int n = number;
+  // Partie fractionnaire → double
+  double _toDecimalFraction(String fraction, int base) {
+    fraction = fraction.toUpperCase();
+    double result = 0.0;
 
-    while (n > 0) {
-      int remainder = n % base;
+    for (int i = 0; i < fraction.length; i++) {
+      int digit = _charToValue(fraction[i]);
+      if (digit >= base) {
+        throw FormatException("Caractère '${fraction[i]}' invalide pour la base $base");
+      }
+      result += digit / Math.pow(base, i + 1);
+    }
+    return result;
+  }
+
+  // Partie entière BigInt → base cible
+  String _fromDecimalInt(BigInt number, int base) {
+    if (number == BigInt.zero) return '0';
+    String result = '';
+    BigInt b = BigInt.from(base);
+    BigInt n = number;
+
+    while (n > BigInt.zero) {
+      int remainder = (n % b).toInt();
       result = _valueToChar(remainder) + result;
-      n ~/= base;
+      n ~/= b;
     }
     return result;
   }
 
-  /// Convertit un caractère en valeur (ex: 'A'->10)
+  // Partie fractionnaire double → base cible
+  String _fromDecimalFraction(double fraction, int base, int precision) {
+    String result = '';
+    double frac = fraction;
+
+    for (int i = 0; i < precision; i++) {
+      frac *= base;
+      int digit = frac.floor();
+      result += _valueToChar(digit);
+      frac -= digit;
+      if (frac == 0) break;
+    }
+
+    return result;
+  }
+
+  // Convertit un caractère en valeur (0-35)
   int _charToValue(String c) {
+    c = c.toUpperCase();
     if (RegExp(r'^[0-9]$').hasMatch(c)) {
       return int.parse(c);
-    } else {
+    } else if (RegExp(r'^[A-Z]$').hasMatch(c)) {
       return c.codeUnitAt(0) - 'A'.codeUnitAt(0) + 10;
-    }
-  }
-
-  /// Convertit une valeur en caractère (ex: 10->'A')
-  String _valueToChar(int value) {
-    if (value < 10) {
-      return value.toString();
     } else {
-      return String.fromCharCode('A'.codeUnitAt(0) + value - 10);
+      throw FormatException("Caractère '$c' non valide");
     }
   }
 
-  /// Fonction puissance (base^exp)
-  int basePow(int base, int exp) {
-    int result = 1;
-    for (int i = 0; i < exp; i++) {
-      result *= base;
-    }
-    return result;
+  // Convertit une valeur (0-35) en caractère
+  String _valueToChar(int value) {
+    if (value < 10) return value.toString();
+    return String.fromCharCode('A'.codeUnitAt(0) + value - 10);
   }
 }
+
+// Utilisation
+// var c = ConvertBase(number: '1A.F', fromBase: 16, toBase: 2);
+// print(c.convert()); // => partie entière et fraction converties

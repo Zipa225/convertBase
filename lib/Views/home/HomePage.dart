@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                         controller: controller,
                         readOnly: true,
                         onTap: () {
+
                           setState(() => showCustomKeyboard = true);
                         },
                         decoration: InputDecoration(
@@ -207,6 +208,9 @@ class _HomePageState extends State<HomePage> {
 
                           setState(() {
                             res = converterBase.toString();
+                            showCustomKeyboard = false;
+                            controller.clear();
+
                           });
                         },
                         child: Text(
@@ -256,7 +260,11 @@ class _HomePageState extends State<HomePage> {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: ClavierPersonnalise(controller: controller),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {},
+                  child: ClavierPersonnalise(controller: controller),
+                ),
               ),
           ],
         ),
@@ -265,10 +273,10 @@ class _HomePageState extends State<HomePage> {
           elevation: 8,
           color: Theme.of(context).colorScheme.secondary,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: Center(
               child: Text(
-                "© 2024 Developed by Emmanuel Ble",
+                "©" +"Developed by Emmanuel Ble",
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 12,
