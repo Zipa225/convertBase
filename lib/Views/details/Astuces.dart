@@ -45,6 +45,8 @@ class _AstucesListScreenState extends State<AstucesListScreen> {
     if (id.contains('8')) return '🧮';
     if (id.contains('10')) return '🔟';
     if (id.contains('16')) return '🎨';
+    if (id.contains('fraction')) return '➗';
+
     return '💡';
   }
 
@@ -55,6 +57,7 @@ class _AstucesListScreenState extends State<AstucesListScreen> {
     if (id.contains('8')) return const Color(0xFF06B6D4);
     if (id.contains('10')) return const Color(0xFF10B981);
     if (id.contains('16')) return const Color(0xFFF59E0B);
+    if (id.contains('fraction')) return const Color(0xFFF59E0B);
     return const Color(0xFF8B5CF6);
   }
 
@@ -146,7 +149,7 @@ class _AstucesListScreenState extends State<AstucesListScreen> {
                                 Text(
                                   astuce.titre,
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: color,
                                   ),

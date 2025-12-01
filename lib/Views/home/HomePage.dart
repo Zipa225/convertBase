@@ -1,3 +1,4 @@
+
 import 'package:convert_base/Controllers/ConvertBase.dart';
 import 'package:convert_base/Views/home/widgets/clavier_personnalise.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,8 @@ class _HomePageState extends State<HomePage> {
 
   FocusNode hexFocusNode = FocusNode();
   TextEditingController controller = TextEditingController();
-
   bool showCustomKeyboard = false;
+  int dateCurrent=DateTime.now().year;
 
   @override
   void initState() {
@@ -86,173 +87,180 @@ class _HomePageState extends State<HomePage> {
 
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // ---------------- TEXTFIELD -------------------
-                      TextField(
-                        focusNode: hexFocusNode,
-                        controller: controller,
-                        readOnly: true,
-                        onTap: () {
+            LayoutBuilder(
 
-                          setState(() => showCustomKeyboard = true);
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Entrez un nombre",
-                          prefixIcon: Icon(Icons.numbers),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
+              builder: (context, constraints){
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        // minHeight: MediaQuery.of(context).size.height,
+                        minHeight: constraints.maxHeight,
                       ),
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // ---------------- TEXTFIELD -------------------
+                            TextField(
+                              focusNode: hexFocusNode,
+                              controller: controller,
+                              readOnly: true,
+                              onTap: () {
 
-                      SizedBox(height: 20),
-
-                      // ---------------- BASE ORIGINE -------------------
-                      Card(
-                        elevation: 2,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: DropdownButton(
-                            isExpanded: true,
-                            value: selectedBaseOrigine,
-                            hint: Text("écrit en base", style: Theme.of(context).textTheme.bodyMedium),
-                            underline: SizedBox(),
-                            items: bases.entries.map((entry) {
-                              return DropdownMenuItem<int>(
-                                value: entry.key,
-                                child: Text(entry.value, style: Theme.of(context).textTheme.bodyMedium),
-                              );
-                            }).toList(),
-                            onChanged: (int? value) {
-                              setState(() => selectedBaseOrigine = value);
-                            },
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-
-                      // ---------------- BASE DESTINATION -------------------
-                      Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: DropdownButton<int>(
-                            isExpanded: true,
-                            value: selectedBaseDestination,
-                            hint: Text("...à convertir en base", style: Theme.of(context).textTheme.bodyMedium),
-                            underline: SizedBox(),
-                            items: bases.entries.map((entry) {
-                              return DropdownMenuItem<int>(
-                                value: entry.key,
-                                child: Text(entry.value, style: Theme.of(context).textTheme.bodyMedium),
-                              );
-                            }).toList(),
-                            onChanged: (int? value) {
-                              setState(() => selectedBaseDestination = value);
-                            },
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-
-                      // ---------------- BUTTON -------------------
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
-                          elevation: 3,
-                        ),
-                        onPressed: () {
-                          final input = controller.text.trim();
-
-                          if (selectedBaseOrigine == null ||
-                              selectedBaseDestination == null ||
-                              input.isEmpty) {
-                            setState(() {
-                              res = "Veuillez remplir tous les champs.";
-                            });
-                            return;
-                          }
-
-                          final converter = ConvertBase(
-                            number: input,
-                            fromBase: selectedBaseOrigine!,
-                            toBase: selectedBaseDestination!,
-                          );
-
-                          final converterBase = converter.convert();
-
-                          setState(() {
-                            res = converterBase.toString();
-                            showCustomKeyboard = false;
-                            controller.clear();
-
-                          });
-                        },
-                        child: Text(
-                          "Convertir",
-                          style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-
-                      // ---------------- RESULT -------------------
-                      Container(
-                        height: 200,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 8,
-                              offset: Offset(0, 4),
+                                setState(() => showCustomKeyboard = true);
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Entrez un nombre",
+                                prefixIcon: Icon(Icons.numbers),
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey.shade300),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
                             ),
+
+                            SizedBox(height: 20),
+
+                            // ---------------- BASE ORIGINE -------------------
+                            Card(
+                              elevation: 2,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                child: DropdownButton(
+                                  isExpanded: true,
+                                  value: selectedBaseOrigine,
+                                  hint: Text("écrit en base", style: Theme.of(context).textTheme.bodyMedium),
+                                  underline: SizedBox(),
+                                  items: bases.entries.map((entry) {
+                                    return DropdownMenuItem<int>(
+                                      value: entry.key,
+                                      child: Text(entry.value, style: Theme.of(context).textTheme.bodyMedium),
+                                    );
+                                  }).toList(),
+                                  onChanged: (int? value) {
+                                    setState(() => selectedBaseOrigine = value);
+                                  },
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            // ---------------- BASE DESTINATION -------------------
+                            Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                child: DropdownButton<int>(
+                                  isExpanded: true,
+                                  value: selectedBaseDestination,
+                                  hint: Text("...à convertir en base", style: Theme.of(context).textTheme.bodyMedium),
+                                  underline: SizedBox(),
+                                  items: bases.entries.map((entry) {
+                                    return DropdownMenuItem<int>(
+                                      value: entry.key,
+                                      child: Text(entry.value, style: Theme.of(context).textTheme.bodyMedium),
+                                    );
+                                  }).toList(),
+                                  onChanged: (int? value) {
+                                    setState(() => selectedBaseDestination = value);
+                                  },
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            // ---------------- BUTTON -------------------
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                backgroundColor: Theme.of(context).colorScheme.secondary,
+                                elevation: 3,
+                              ),
+                              onPressed: () {
+                                final input = controller.text.trim();
+
+                                if (selectedBaseOrigine == null ||
+                                    selectedBaseDestination == null ||
+                                    input.isEmpty) {
+                                  setState(() {
+                                    res = "Veuillez remplir tous les champs.";
+                                  });
+                                  return;
+                                }
+
+                                final converter = ConvertBase(
+                                  number: input,
+                                  fromBase: selectedBaseOrigine!,
+                                  toBase: selectedBaseDestination!,
+                                );
+
+                                final converterBase = converter.convert();
+
+                                setState(() {
+                                  res = converterBase.toString();
+                                  showCustomKeyboard = false;
+                                  controller.clear();
+
+                                });
+                              },
+                              child: Text(
+                                "Convertir",
+                                style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            // ---------------- RESULT -------------------
+                            Container(
+                              height: 200,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 8,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Text(
+                                res.isEmpty ? "Résultat" : res,
+                                style: TextStyle(
+                                  fontFamily: 'poppins',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w900,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                            ),
+
                           ],
                         ),
-                        child: Text(
-                          res.isEmpty ? "Résultat" : res,
-                          style: TextStyle(
-                            fontFamily: 'poppins',
-                            fontSize: 22,
-                            fontWeight: FontWeight.w900,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
                       ),
+                    ),
+                  );
 
-                      SizedBox(height: 100),
-                    ],
-                  ),
-                ),
-              ),
+              },
             ),
+
 
 
             if (showCustomKeyboard)
@@ -276,7 +284,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: Center(
               child: Text(
-                "©" +"Developed by Emmanuel Ble",
+                "© $dateCurrent Developed by Emmanuel Ble",
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 12,

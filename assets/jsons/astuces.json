@@ -233,5 +233,48 @@
       ],
       "resultat": "240 + 14 = 254"
     }
+  },
+
+
+  "fraction_to_decimal": {
+    "titre": "Conversion des fractions d'une base vers le décimal",
+    "explication": "Pour convertir la partie fractionnaire (après la virgule) d'un nombre d'une base B vers le décimal, on applique des puissances négatives : B⁻¹, B⁻², B⁻³, etc.",
+    "etapes": [
+      "Séparer la partie entière et la partie fractionnaire.",
+      "Numéroter les chiffres après la virgule en commençant par 1.",
+      "Pour chaque chiffre, appliquer : chiffre × base^(−position).",
+      "Additionner tous les résultats pour obtenir la valeur décimale de la fraction."
+    ],
+    "exemple": {
+      "nombre": "a.bcd en base B",
+      "calculs": [
+        "b × B^-1",
+        "c × B^-2",
+        "d × B^-3"
+      ],
+      "resultat": "Fraction = b/B + c/B² + d/B³"
+    }
+  },
+  "decimal_to_fraction": {
+    "titre": "Conversion décimal → fraction dans une autre base",
+    "explication": "Pour convertir une fraction décimale vers une autre base, on multiplie la fraction par la base et on récupère les parties entières successives.",
+    "etapes": [
+      "Garder uniquement la partie fractionnaire (par ex. 0.375).",
+      "Multiplier la fraction par la base.",
+      "La partie entière obtenue devient le premier chiffre après la virgule.",
+      "Soustraire la partie entière pour obtenir une nouvelle fraction.",
+      "Répéter le processus jusqu'à obtenir une fraction nulle ou le nombre de chiffres voulu."
+    ],
+    "exemple": {
+      "nombre": "0.fraction en décimal vers base B",
+      "calculs": [
+        "fraction × B → partie entière 1",
+        "nouvelle_fraction × B → partie entière 2",
+        "etc."
+      ],
+      "note": "Certaines fractions sont infinies (ex: 0.1 décimal en binaire) et doivent être tronquées."
+    }
   }
+
+
 }
