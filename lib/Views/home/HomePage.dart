@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
 
   String res = "";
 
+
+
   FocusNode hexFocusNode = FocusNode();
   TextEditingController controller = TextEditingController();
   bool showCustomKeyboard = false;
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "CONVERTBASE",
+            "ConvertCraft",
             style: Theme.of(context).textTheme.titleMedium,
           ),
           centerTitle: true,
@@ -106,6 +108,8 @@ class _HomePageState extends State<HomePage> {
                               focusNode: hexFocusNode,
                               controller: controller,
                               readOnly: true,
+                              showCursor:true,
+
                               onTap: () {
 
                                 setState(() => showCustomKeyboard = true);
@@ -141,9 +145,14 @@ class _HomePageState extends State<HomePage> {
                                   hint: Text("écrit en base", style: Theme.of(context).textTheme.bodyMedium),
                                   underline: SizedBox(),
                                   items: bases.entries.map((entry) {
+
                                     return DropdownMenuItem<int>(
-                                      value: entry.key,
-                                      child: Text(entry.value, style: Theme.of(context).textTheme.bodyMedium),
+                                      value:entry.key,
+
+                                      child: Text(
+                                          entry.value,
+                                          style: Theme.of(context).textTheme.bodyMedium,
+                                      ),
                                     );
                                   }).toList(),
                                   onChanged: (int? value) {
