@@ -40,7 +40,7 @@ class _SplashState extends State<Splash> {
                   );
                 },
                 child: Image.asset(
-                  "assets/images/icConvert.PNG",
+                  "assets/images/icConvert.png",
                   width: 150,
                   height: 150,
                 ),
