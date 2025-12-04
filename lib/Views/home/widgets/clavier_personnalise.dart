@@ -10,7 +10,33 @@ class ClavierPersonnalise extends StatefulWidget {
 }
 
 class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
-  String hexValue = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+
+  void _onKeyPressed(String key) {
+    String currentValue = widget.controller.text;
+    String newValue = currentValue + key;
+    widget.controller.text = newValue;
+    widget.controller.selection = TextSelection.collapsed(offset: newValue.length);
+  }
+
+  void _onBackspacePressed() {
+    String currentValue = widget.controller.text;
+    if (currentValue.isNotEmpty) {
+      String newValue = currentValue.substring(0, currentValue.length - 1);
+      widget.controller.text = newValue;
+      widget.controller.selection = TextSelection.collapsed(offset: newValue.length);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +61,6 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
         builder: (context, constraints) {
           double spacing = 8;
           int crossAxisCount = 4;
-          // List<String> keys = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
           List<String> keys = ["F","E","D","C","B","A","9","8","7","6","5","4","0","1","2","3"];
 
           return Column(
@@ -68,10 +93,7 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       onPressed: () {
-                        setState(() {
-                          hexValue += key;
-                          widget.controller.text = hexValue;
-                        });
+                        _onKeyPressed(key);
                       },
                       child: Text(
                         key,
@@ -81,21 +103,17 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                         ),
                       ),
                     );
-
                   },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-
                   children: [
-                    // Bouton "."
                     Expanded(
                       flex: 1,
                       child: SizedBox(
-
-                        height: 50, // même hauteur pour les deux
+                        height: 50,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue.shade50,
@@ -108,10 +126,9 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           onPressed: () {
-                            setState(() {
-                              hexValue += ".";
-                              widget.controller.text = hexValue;
-                            });
+                            if (!widget.controller.text.contains('.')) {
+                              _onKeyPressed(".");
+                            }
                           },
                           child: const Text(
                             ".",
@@ -123,14 +140,11 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                         ),
                       ),
                     ),
-
-                    SizedBox(width: spacing), // espacement entre les boutons
-
-                    // Bouton backspace
+                    SizedBox(width: spacing),
                     Expanded(
                       flex: 2,
                       child: SizedBox(
-                        height: 50, // même hauteur
+                        height: 50,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red.shade400,
@@ -142,12 +156,7 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                             padding: EdgeInsets.zero,
                           ),
                           onPressed: () {
-                            if (hexValue.isNotEmpty) {
-                              setState(() {
-                                hexValue = hexValue.substring(0, hexValue.length - 1);
-                                widget.controller.text = hexValue;
-                              });
-                            }
+                            _onBackspacePressed();
                           },
                           child: const Icon(Icons.backspace),
                         ),
@@ -156,14 +165,10 @@ class _ClavierPersonnaliseState extends State<ClavierPersonnalise> {
                   ],
                 ),
               )
-
-
             ],
           );
         },
       ),
     );
   }
-
 }
-

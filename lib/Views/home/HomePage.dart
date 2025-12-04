@@ -91,6 +91,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         appBar: AppBar(
+
           title: Text(
             "ConvertCraft",
             style: Theme.of(context).textTheme.titleMedium,
@@ -125,6 +126,8 @@ class _HomePageState extends State<HomePage> {
               ),
             )
           ],
+          leading:Image.asset("assets/images/icConvertRemove.png", width: 18, height: 18)
+
         ),
 
         body: Stack(
@@ -314,7 +317,10 @@ class _HomePageState extends State<HomePage> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: ClavierPersonnalise(controller: controller),
+                child:GestureDetector(
+                  onTap:(){},
+                  child: ClavierPersonnalise(controller: controller),
+                ),
               )
           ],
         ),
